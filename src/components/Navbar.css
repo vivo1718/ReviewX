@@ -1,0 +1,27 @@
+.navbar {
+    background-color: rgba(0, 0, 0, 0.126) !important; /* Semi-transparent black */
+    backdrop-filter: blur(5px) !important; /* Adds a blur effect */
+    transition: background-color 0.3s ease !important; /* Smooth transition on scroll or hover */
+  }
+  
+  
+  .navbar-brand {
+    color: white !important;
+    font-family: Poppins, sans-serif !important;
+    /* Ensure brand is visible */
+  }
+  .nav_item{
+    font-family: Poppins, sans-serif !important;
+    font-size: smaller !important;
+  }
+  
+  
+  .nav-link {
+    color: white !important;
+    font-family: Poppins, sans-serif !important;
+    font-size: smaller !important; /* Ensure links are visible */
+  }
+  
+  .nav-link:hover {
+    color: #f0db4f !important; /* Add hover effect for links */
+  }

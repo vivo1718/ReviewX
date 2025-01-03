@@ -1,0 +1,234 @@
+.movie-card {
+    max-width: 300px; /* Larger card width */
+    height: auto; 
+    border: 0px;
+    position: relative;
+    overflow: hidden;/* Maintain aspect ratio */
+    margin: auto; /* Center the card */
+  }
+
+  .watch-providers {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 15px rgba(49, 8, 231, 0.737) !important;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    background-color: #1f1f1f;
+    color: #f9f9f9;
+  }
+  
+  .provider {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    column-gap: 10px;
+  }
+  
+  .provider img {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+.bottom-sheet {
+  position: absolute;
+  bottom: -50%; /* Initially hidden */
+  left: 0;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  right: 0;
+ overflow-y: scroll;
+  background: #f9f9f9;
+  border-top: 1px solid #ddd;
+  height: 50%; /* Adjust as needed */
+  transition: bottom 0.3s ease-in-out;
+  z-index: 10;
+}
+
+.bottom-sheet.open {
+  bottom: 0; /* Slide into view */
+}
+
+.sheet-content {
+  padding: 20px;
+  text-align: center;
+}
+  
+  .movie-card img {
+    border:0px;
+    height: 350px; /* Larger image height */
+    object-fit: cover; /* Ensure the image fills the card */
+  }
+  
+  /* Reduce the gap between cards */
+  .slick-slide > div {
+    margin: 0 5px; /* Uniform spacing */
+  }
+  
+  /* Slick carousel adjustments */
+  .slick-list {
+    padding: 0 15px; /* Slight padding for better layout */
+  }
+  .slick-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 50%;
+    padding: 10px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .slick-prev {
+    left: -50px; /* Default position for desktop */
+  }
+  
+  .slick-next {
+    right: -50px; /* Default position for desktop */
+  }
+  
+  /* Hover Effect */
+  .slick-arrow:hover {
+   color: #fff;
+   background-color: #1f1f1f;
+
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 1024px) {
+    .slick-prev {
+      left: -30px; /* Adjust position for tablet */
+    }
+  
+    .slick-next {
+      right: -30px; /* Adjust position for tablet */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .slick-prev {
+      left: -20px; /* Adjust position for mobile */
+    }
+  
+    .slick-next {
+      right: -20px; /* Adjust position for mobile */
+    }
+  
+    .slick-arrow {
+      width: 30px;
+      height: 30px; /* Reduce size for smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .slick-prev {
+      left: -15px;
+    }
+  
+    .slick-next {
+      right: -15px;
+    }
+  
+    .slick-arrow {
+      width: 25px;
+      height: 25px; /* Further reduce size for very small screens */
+    }
+  }
+  
+  /* Dots customization */
+  .slick-dots li button:before {
+    font-size: 6px;
+    color: #000;
+  }
+  
+  .slick-dots li.slick-active button:before {
+    color: #007bff;
+  }
+  .video-section {
+    position: relative;
+    height: 600px;
+    overflow: hidden;
+  }
+  
+  .video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: rgba(0, 0, 0, 0.4); /* Light black overlay */
+    z-index: 2;
+    pointer-events: none;
+  }
+  
+  .video-content {
+    position: absolute;
+    bottom: 20%;
+    width: 100%;
+    text-align: center;
+    z-index: 3;
+    color: white;
+  }
+  .card-body {
+    margin-top: 2px;
+    background-color: #1f1f1f;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    /* Apply blur effect behind the element */
+     /* Prevents overflow of blurred content */
+  }
+  .title_bar{
+    height:40px;
+    width:5px;
+    border-radius: 10px;
+    margin-right: 5px;
+    background-color: blue;
+  }
+  .card-title{
+    color:#fff !important;
+    font-size: smaller;
+    font-family: 'Poppins', sans-serif;
+  }
+  .btn{
+    font-family: "Roboto", serif !important;
+font-size: smaller !important;
+box-shadow: 0 5px 15px rgba(49, 8, 231, 0.737) !important;
+border-radius: 30px !important;
+color:#fff !important;
+}
+.img_top{
+    position: absolute;
+    display: overflow;
+    height: 60px;
+    z-index: 1;
+}
+.hero-curve {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 2;
+    box-shadow: 0 5px 15px rgba(49, 8, 231, 0.737);
+}
+  
+  
