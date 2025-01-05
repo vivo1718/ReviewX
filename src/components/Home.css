@@ -58,7 +58,8 @@
   
   .movie-card img {
     border:0px;
-    height: 350px; /* Larger image height */
+    height: 350px; 
+    border-top-right-radius: 30px;/* Larger image height */
     object-fit: cover; /* Ensure the image fills the card */
   }
   
@@ -221,14 +222,6 @@ color:#fff !important;
     height: 60px;
     z-index: 1;
 }
-.hero-curve {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-    z-index: 2;
-    box-shadow: 0 5px 15px rgba(49, 8, 231, 0.737);
-}
+
   
   

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ToastContainer } from "react-bootstrap";
+import { ToastContainer, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import {  faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as solidBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as regularBookmark } from '@fortawesome/free-regular-svg-icons';
 import "slick-carousel/slick/slick.css";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import "slick-carousel/slick/slick-theme.css";
 import movie from "../assets/movie.avif";
 import "./Home.css";
@@ -68,6 +70,8 @@ const Home = () => {
       return true;
     });
   };
+
+  
   useEffect(() => {
     const fetchRatedMovies = async () => {
       try {
@@ -181,8 +185,9 @@ const Home = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#ffc" }}>
+    <div style={{ backgroundColor: "#ffe" }}>
       <ToastContainer />
+
       <div className="video-section">
         <img
           className="video-bg"

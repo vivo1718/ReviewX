@@ -7,21 +7,45 @@
   
   .navbar-brand {
     color: white !important;
-    font-family: Poppins, sans-serif !important;
+    
+    font-family: "Raleway", serif !important;
+
     /* Ensure brand is visible */
   }
   .nav_item{
-    font-family: Poppins, sans-serif !important;
-    font-size: smaller !important;
+    font-family: "Raleway", serif !important;
+    font-size: small !important;
+    margin-right: 10px !important;
   }
   
   
   .nav-link {
     color: white !important;
-    font-family: Poppins, sans-serif !important;
-    font-size: smaller !important; /* Ensure links are visible */
+    font-family: "Raleway", serif !important;
+    font-size: small !important; /* Ensure links are visible */
   }
   
   .nav-link:hover {
     color: #f0db4f !important; /* Add hover effect for links */
   }
+    .btn-sign{
+      font-family: "Raleway", serif;
+    font-size: small ;
+    margin-left: 10px ;
+  width:100px;
+  color: #1f1f1f;
+  height: 40px ;
+  background-color: #ffc ;
+  margin-right: 10px ;
+}
+  .btn-log{
+  font-family: "Raleway", serif ;
+  font-size: small ;
+  border-radius: 0px ;
+width:100px ;
+height: 40px ;
+}
+.custom-modal  {
+  max-width: 400px !important; /* Custom width */
+  margin: auto; /* Center horizontally */
+}
