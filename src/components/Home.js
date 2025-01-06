@@ -157,7 +157,7 @@ const Home = () => {
     if (openCardIdRated !== id) {
       fetchWatchProviders(id); // Fetch watch providers when expanding
     }
-    setOpenCardIdMovies(openCardIdRated === id ? null : id);
+    setOpenCardIdRated(openCardIdRated === id ? null : id);
   };
   
 
