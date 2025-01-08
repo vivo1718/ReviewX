@@ -1,7 +1,7 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ProgressBar, ToastContainer } from 'react-bootstrap';
-import { toast } from 'react-toastify';
+import { ProgressBar } from 'react-bootstrap';
+import { ToastContainer,toast } from 'react-toastify';
 import React, { useEffect, useState } from 'react';
 const Bookmark = () => {
   const [favorites, setFavorites] = useState([]);
@@ -40,10 +40,11 @@ const Bookmark = () => {
       setLoading(false);
     }
   };
-  const handleRemoveFromFavorites = async (listId) => {
-    const url = `https://api.themoviedb.org/3/list/${listId}`;
+  const movieId = 558449;
+  const handleRemoveFromFavorites = async (movieId) => {
+    const url = `https://api.themoviedb.org/3/list/${movieId}/remove_item`;
     const options = {
-      method: 'DELETE',
+      method: 'POST',
       headers: {
         accept: 'application/json',
         Authorization:
@@ -58,13 +59,15 @@ const Bookmark = () => {
       if (response.ok) {
         // Update favorites list by filtering out the deleted list
         setFavorites((prevFavorites) =>
-          prevFavorites.filter((movie) => movie.id !== listId)
+          prevFavorites.filter((movie) => movie.id !== movieId)
         );
-        console.log(`List with ID ${listId} was deleted successfully.`);
-        toast.success('List deleted successfully');
+        console.log(`List with ID ${movieId} was deleted successfully.`);
+        toast.success('List deleted successfully',{
+          className:'toast-can d-flex rounded'
+        });
       } else {
         console.error('Failed to delete the list:', result.status_message);
-        toast.error('List deleted successfully');
+        toast.error('Failed to delete the list');
 
       }
     } catch (err) {
@@ -72,7 +75,9 @@ const Bookmark = () => {
       toast.warning('Error deleting the list');
     }
   };
-
+  useEffect(() => {
+    handleRemoveFromFavorites(movieId);
+  }, []);
 
   useEffect(() => {
     fetchFavorites();
@@ -84,7 +89,7 @@ const Bookmark = () => {
           animated
           now={progress}
           label={`${progress}%`}          
-          style={{ width: '50%' }}
+          style={{ width: '25%' }}
         />
     </div>;
   }
@@ -95,7 +100,7 @@ const Bookmark = () => {
 
   return (
     <div className='d-flex flex-column ms-3 me-3 mt-5 ps-3 ' style={{fontFamily:'Poppins'}}  >
-      <ToastContainer></ToastContainer>
+      <ToastContainer className='d-flex rounded' ></ToastContainer>
       <h3 className='ms-2 mb-2' >Your Favorites </h3>
       {favorites.length > 0 ? (
         
@@ -132,6 +137,7 @@ const Bookmark = () => {
                           fontSize:'smaller',
                           WebkitLineClamp: 3,
                         }} >
+                        <strong>{movie.id}</strong>
                       <strong>Overview:</strong> {movie.overview}
                     </p>
                     

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ToastContainer, Button } from "react-bootstrap";
-import { toast } from "react-toastify";
+import { Button } from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
 import {  faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as solidBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as regularBookmark } from '@fortawesome/free-regular-svg-icons';
@@ -20,6 +20,7 @@ const Home = () => {
   const [openCardIdMovies, setOpenCardIdMovies] = useState(null); // For Top Movies
   const [openCardIdRated, setOpenCardIdRated] = useState(null); // For TV Series
   const [watchProviders, setWatchProviders] = useState({});
+  const[loading2,setLoading2] = useState(true);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -34,6 +35,7 @@ const Home = () => {
           }
         );
         setMovies(res.data.results);
+        setLoading2(false);
       } catch (error) {
         console.error(error);
       }
@@ -137,12 +139,10 @@ const Home = () => {
       });
       if (response.status === 200) {
         setFavorites((prev) => [...prev, movie]); 
-        toast.success("Movie added to favorites!");
         // Add movie to favorites
       }
     } catch (error) {
       console.error("Failed to add to favorites:", error);
-      alert("Movie added to favorites!");
 
     }
   };
@@ -200,7 +200,7 @@ const Home = () => {
           <p>Discover the most popular and trending movies of the year.</p>
         </div>
       </div>
-      <div className="container mt-4  ">
+      {!loading2?(<><div className="container mt-4  ">
         {/* Top Movies Section */}
         <div className="d-flex flex-row">
           <div className="title_bar"></div>
@@ -338,7 +338,7 @@ const Home = () => {
             </div>
           ))}
         </Slider>
-      </div>
+      </div></>):(<div className="d-flex justify-content-center align-items-center mt-4">Loading Please wait...</div>)}
     </div>
   );
 };

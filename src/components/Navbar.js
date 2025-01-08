@@ -55,8 +55,8 @@ const Navbar = ({ favorites = [] }) => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" to="/bookmark" onClick={handlebookmark} >
-                Bookmark
+              <Link className="nav-link active" to="/favourites" onClick={handlebookmark} >
+                Favourites
               </Link>
             </li>
             <li className="nav-item">
