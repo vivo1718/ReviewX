@@ -75,9 +75,7 @@ const Bookmark = () => {
       toast.warning('Error deleting the list');
     }
   };
-  useEffect(() => {
-    handleRemoveFromFavorites(movieId);
-  }, []);
+  
 
   useEffect(() => {
     fetchFavorites();
@@ -101,7 +99,7 @@ const Bookmark = () => {
   return (
     <div className='d-flex flex-column ms-3 me-3 mt-5 ps-3 ' style={{fontFamily:'Poppins'}}  >
       <ToastContainer className='d-flex rounded' ></ToastContainer>
-      <h3 className='ms-2 mb-2' >Your Favorites </h3>
+      <h3 className='ms-5 mb-2' >Favorites </h3>
       {favorites.length > 0 ? (
         
         <ul className="list-unstyled">
