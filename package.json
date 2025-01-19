@@ -1,5 +1,5 @@
 {
-  "homepage":"https://vivo1718.github.io/ReviewX",
+  "homepage": "https://vivo1718.github.io/ReviewX",
   "name": "review_x",
   "version": "0.1.0",
   "private": true,
@@ -11,20 +11,23 @@
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "cra-template": "1.2.0",
+    "dotenv": "^16.4.7",
     "font-awesome": "^4.7.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.7",
     "react-dom": "^19.0.0",
+    "react-loading-skeleton": "^3.5.0",
     "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
     "react-slick": "^0.30.3",
     "react-toastify": "^11.0.2",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "sonner": "^1.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
-    "predeploy":"npm run build",
-    "deploy":"gh-pages -d build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

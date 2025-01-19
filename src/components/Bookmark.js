@@ -1,7 +1,7 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProgressBar } from 'react-bootstrap';
-import { ToastContainer,toast } from 'react-toastify';
+import { Toaster,toast } from 'sonner';
 import React, { useEffect, useState } from 'react';
 const Bookmark = () => {
   const [favorites, setFavorites] = useState([]);
@@ -40,18 +40,22 @@ const Bookmark = () => {
       setLoading(false);
     }
   };
-  const movieId = 558449;
   const handleRemoveFromFavorites = async (movieId) => {
-    const url = `https://api.themoviedb.org/3/list/${movieId}/remove_item`;
+    const url = "https://api.themoviedb.org/3/account/${movieId}/favorite";
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        accept: 'application/json',
+        accept: "application/json",
+        "content-type": "application/json",
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNjc1ZWU2ZmM2ZGE2YjhhYzllYjFjOTM5MTU2MDRjZiIsIm5iZiI6MTczNTQzOTEzMi44ODk5OTk5LCJzdWIiOiI2NzcwYjMxYzZjYzRjYWY4ZmI5MmE2ZjUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.rM0XmTtNe3tTPPmxUjlH4as80N0niqmOMRw8VDaZSdo',
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNjc1ZWU2ZmM2ZGE2YjhhYzllYjFjOTM5MTU2MDRjZiIsIm5iZiI6MTczNTQzOTEzMi44ODk5OTk5LCJzdWIiOiI2NzcwYjMxYzZjYzRjYWY4ZmI5MmE2ZjUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.rM0XmTtNe3tTPPmxUjlH4as80N0niqmOMRw8VDaZSdo",
+      },
+      data: {
+        media_type: "movie",
+        media_id: movieId,
+        favorite: false,
       },
     };
-
     try {
       const response = await fetch(url, options);
       const result = await response.json();
@@ -97,9 +101,11 @@ const Bookmark = () => {
   }
 
   return (
-    <div className='d-flex flex-column ms-3 me-3 mt-5 ps-3 ' style={{fontFamily:'Poppins'}}  >
-      <ToastContainer className='d-flex rounded' ></ToastContainer>
-      <h3 className='ms-5 mb-2' >Favorites </h3>
+    <div className='d-flex flex-column ms-3 me-3 mt-5 ps-3 ' style={{fontFamily:'Poppins', }}  >
+      <Toaster richColors   position='top-right' className='d-flex rounded' expand={false}  ></Toaster>
+      <h3 className=' ms-5 mb-3' style={{
+        textDecoration:'underline'
+      }} >Favorites </h3>
       {favorites.length > 0 ? (
         
         <ul className="list-unstyled">

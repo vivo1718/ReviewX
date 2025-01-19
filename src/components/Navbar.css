@@ -17,35 +17,44 @@
     font-size: small !important;
     margin-right: 10px !important;
   }
-  
+  .form_cont:focus{
+    box-shadow: none !important;
+    border-color: #692ff2 !important;
+  }
   
   .nav-link {
     color: white !important;
     font-family: "Raleway", serif !important;
-    font-size: small !important; /* Ensure links are visible */
+    font-size: small !important; 
+    font-weight: bold !important;/* Ensure links are visible */
   }
   
   .nav-link:hover {
-    color: #f0db4f !important; /* Add hover effect for links */
+    color: #692ff2 !important; /* Add hover effect for links */
   }
     .btn-sign{
       font-family: "Raleway", serif;
     font-size: small ;
     margin-left: 10px ;
   width:100px;
+  border-color: #692ff2;
   color: #1f1f1f;
   height: 40px ;
-  background-color: #ffc ;
   margin-right: 10px ;
 }
   .btn-log{
-  font-family: "Raleway", serif ;
-  font-size: small ;
-  border-radius: 0px ;
-width:100px ;
-height: 40px ;
+    font-family: "Raleway", serif;
+    font-size: small ;
+    border-color: #692ff2;
+    margin-left: 10px ;
+  width:100px;
+  color: #1f1f1f;
+  height: 40px ;
+  margin-right: 10px ;
 }
 .custom-modal  {
   max-width: 400px !important; /* Custom width */
-  margin: auto; /* Center horizontally */
+  margin: auto;
+  font-family: "Raleway", serif !important;
+
 }
