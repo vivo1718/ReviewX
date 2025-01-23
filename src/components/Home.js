@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Card, Row,Col, Spinner } from "react-bootstrap";
+import { Button, Card, Row,Col, Spinner, Carousel } from "react-bootstrap";
 import { Toaster, toast } from "sonner";
-import {  faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {  faChevronDown, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import "slick-carousel/slick/slick.css";
@@ -22,11 +22,36 @@ const Home = () => {
   const [openCardIdRated, setOpenCardIdRated] = useState(null); // For TV Series
   const [watchProviders, setWatchProviders] = useState({});
   const[loading2,setLoading2] = useState(true);
+  const[loadingu,setLoadingU] = useState(true);
+
   const[loadingcast,setLoadingCast] = useState(true);
 
   const [movieCasts, setMovieCasts] = useState({});
   const [tvCasts, setTvCasts] = useState({});
 
+  const [umovies, setUMovies] = useState([]); // State for upcoming movies
+
+  const url = "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1";
+
+  useEffect(() => {
+    const fetchUMovies = async () => {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            accept: "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNjc1ZWU2ZmM2ZGE2YjhhYzllYjFjOTM5MTU2MDRjZiIsIm5iZiI6MTczNTQzOTEzMi44ODk5OTk5LCJzdWIiOiI2NzcwYjMxYzZjYzRjYWY4ZmI5MmE2ZjUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.rM0XmTtNe3tTPPmxUjlH4as80N0niqmOMRw8VDaZSdo",
+          },
+        });
+        setUMovies(response.data.results || []);
+        setLoadingU(false) ;// Update state with movie results
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    };
+
+    fetchUMovies();
+  }, []);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -36,7 +61,7 @@ const Home = () => {
           {
             headers: {
               accept: "application/json",
-              Authorization:process.env.ID
+              Authorization:"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNjc1ZWU2ZmM2ZGE2YjhhYzllYjFjOTM5MTU2MDRjZiIsIm5iZiI6MTczNTQzOTEzMi44ODk5OTk5LCJzdWIiOiI2NzcwYjMxYzZjYzRjYWY4ZmI5MmE2ZjUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.rM0XmTtNe3tTPPmxUjlH4as80N0niqmOMRw8VDaZSdo"
             },
           }
         );
@@ -51,7 +76,7 @@ const Home = () => {
             {
               headers: {
                 accept: "application/json",
-                Authorization:process.env.ID
+                Authorization:"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNjc1ZWU2ZmM2ZGE2YjhhYzllYjFjOTM5MTU2MDRjZiIsIm5iZiI6MTczNTQzOTEzMi44ODk5OTk5LCJzdWIiOiI2NzcwYjMxYzZjYzRjYWY4ZmI5MmE2ZjUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.rM0XmTtNe3tTPPmxUjlH4as80N0niqmOMRw8VDaZSdo"
               }
             }
           )
@@ -73,27 +98,7 @@ const Home = () => {
     fetchMovies();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchMovies = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc",
-  //         {
-  //           headers: {
-  //             accept: "application/json",
-  //             Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNjc1ZWU2ZmM2ZGE2YjhhYzllYjFjOTM5MTU2MDRjZiIsIm5iZiI6MTczNTQzOTEzMi44ODk5OTk5LCJzdWIiOiI2NzcwYjMxYzZjYzRjYWY4ZmI5MmE2ZjUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.rM0XmTtNe3tTPPmxUjlH4as80N0niqmOMRw8VDaZSdo",
-  //           },
-  //         }
-  //       );
-  //       setMovies(res.data.results);
-  //       setLoading2(false);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
 
-  //   fetchMovies();
-  // }, []);
   const fetchWatchProviders = async (movieId) => {
     try {
       const res = await axios.get(
@@ -101,7 +106,7 @@ const Home = () => {
         {
           headers: {
             accept: "application/json",
-            Authorization: process.env.ID
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNjc1ZWU2ZmM2ZGE2YjhhYzllYjFjOTM5MTU2MDRjZiIsIm5iZiI6MTczNTQzOTEzMi44ODk5OTk5LCJzdWIiOiI2NzcwYjMxYzZjYzRjYWY4ZmI5MmE2ZjUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.rM0XmTtNe3tTPPmxUjlH4as80N0niqmOMRw8VDaZSdo"
           },
         }
       );
@@ -131,7 +136,7 @@ const Home = () => {
           {
             headers: {
               accept: "application/json",
-              Authorization: process.env.ID,
+              Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNjc1ZWU2ZmM2ZGE2YjhhYzllYjFjOTM5MTU2MDRjZiIsIm5iZiI6MTczNTQzOTEzMi44ODk5OTk5LCJzdWIiOiI2NzcwYjMxYzZjYzRjYWY4ZmI5MmE2ZjUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.rM0XmTtNe3tTPPmxUjlH4as80N0niqmOMRw8VDaZSdo"
             },
           }
         );
@@ -144,7 +149,7 @@ const Home = () => {
             {
               headers: {
                 accept: "application/json",
-                Authorization: process.env.ID,
+                Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNjc1ZWU2ZmM2ZGE2YjhhYzllYjFjOTM5MTU2MDRjZiIsIm5iZiI6MTczNTQzOTEzMi44ODk5OTk5LCJzdWIiOiI2NzcwYjMxYzZjYzRjYWY4ZmI5MmE2ZjUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.rM0XmTtNe3tTPPmxUjlH4as80N0niqmOMRw8VDaZSdo"
               }
             }
           )
@@ -165,6 +170,81 @@ const Home = () => {
 
     fetchRatedMovies();
   }, []);
+  const styles = {
+    footer: {
+      backgroundColor: '#000',
+      color: '#fff',
+      padding: '20px',
+      textAlign: 'center',
+      fontSize: '14px',
+    },
+    signIn: {
+      marginBottom: '20px',
+    },
+    button: {
+      backgroundColor: '#ffc107',
+      color: '#000',
+      border: 'none',
+      padding: '10px 20px',
+      borderRadius: '5px',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+    },
+    socialContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexWrap: 'wrap', // Adjusts layout for smaller screens
+      gap: '20px',
+      marginBottom: '20px',
+    },
+    socialBox: {
+      flex: '1 1 200px', // Flex-grow for responsiveness
+      maxWidth: '300px',
+      textAlign: 'center',
+    },
+    heading: {
+      fontSize: '16px',
+      marginBottom: '10px',
+    },
+    socialIcons: {
+      display: 'flex',
+      justifyContent: 'center',
+      gap: '10px',
+    },
+    icon: {
+      fontSize: '20px',
+      cursor: 'pointer',
+    },
+    qrCode: {
+      width: '100px',
+      height: '100px',
+      backgroundColor: '#ccc',
+      display: 'inline-block',
+      margin: '10px auto',
+    },
+    appText: {
+      marginTop: '10px',
+    },
+    links: {
+      display: 'flex',
+      justifyContent: 'center',
+      flexWrap: 'wrap', // Adjusts layout for smaller screens
+      gap: '15px',
+      marginBottom: '20px',
+    },
+    link: {
+      cursor: 'pointer',
+      textDecoration: 'none',
+      color: '#fff',
+      fontSize: '14px',
+    },
+    bottom: {
+      fontSize: '12px',
+      marginTop: '10px',
+    },
+  };
+  
 
   // const toggleDetailsMovies = (id) => {
   //   setOpenCardIdMovies(openCardIdMovies === id ? null : id);
@@ -255,40 +335,72 @@ const Home = () => {
       },
     ],
   };
+  const styles2 = {
+    spinnerContainer: {
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      zIndex: 9999,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  };
 
   return (
-    <div style={{ backgroundColor: '#ccf' }}>
-      <Toaster expand={false} />
-
-      <div className="video-section">
-        <img
-          className="video-bg"
-            src={img_back}
-          // src={movie}    
-        ></img>
-        <div className="overlay"></div>
-        <div className="video-content">
-          <h1>Welcome to Movie World</h1>
-          <p>Discover the most popular and trending movies of the year.</p>
-        </div>
+    <div  className="div_home" style={{ backgroundColor: '#ccf' }}>
+      <Toaster richColors expand={false} />
+      {!loadingu?(<><div  className="carou" style={{ width: '100%' }}>
+      {!loadingu?(<Carousel >
+        {umovies.map((movie) => (
+          <Carousel.Item key={movie.id}>
+            <img
+              className="d-block w-100"
+              src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+              alt={movie.title}
+              style={{ height: '500px', objectFit: 'cover' }}
+            />
+            <Carousel.Caption>
+              <div  className=" back_shed p-2 w-100"  >
+              <h3>{movie.title}</h3>
+              <p>{movie.overview}{movie.video}</p>
+              </div>
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
+      </Carousel>):(<div className="card-container mt-3">
+        
+        {Array(1).fill(0).map((_, index) => (
+          <div key={index} className="cardsk h-100">
+            <div className="skeleton skeleton-image"></div>
+            <div className="skeleton skeleton-title"></div>
+            <div className="skeleton skeleton-subtitle mb-2"></div>
+            <div className="skeleton skeleton-subtitle mb-2"></div>
+            <div className="skeleton skeleton-subtitle"></div>
+          </div>
+        ))}
       </div>
+          )}
+    </div>
       {!loading2?(<><div className="container mt-4  "  >
         {/* Top Movies Section */}
         <div className="d-flex flex-row">
           <div className="title_bar"></div>
-          <h3
+          <h5
             className="text-center mb-4"
             style={{
               fontFamily: 'Poppins',
             }}
           >
             Top Movies
-          </h3>
+          </h5>
         </div>
         <Slider {...settings}  >
           {movies.map((movie) => (
             <div key={movie.id} className="px-2">
-              <div className="card movie-card shadow-sm  rounded">
+              <Card className="p-2">
+              <div className="card movie-card shadow-sm  rounded w-100">
               <div className="img_top d-flex justify-content-center align-items-center " style={{
                   width:'50px',
                   backgroundColor:'#1f1f1f',
@@ -321,18 +433,8 @@ const Home = () => {
                 {/* Bottom Sheet for Top Movies */}
                 <div className={`bottom-sheet ${openCardIdMovies === movie.id ? "open" : ""}`}>
                   <div className="sheet-content d-flex flex-column justify-content-center align-item-center" onClick={() => toggleDetailsMovies(movie.id)}>
-                  <div  style={{
-                    height:'5px',
-                    width:'60px',
-                    borderRadius:'25px',
-                    marginBottom:'5px',
-                    backgroundColor:'#1f1f1f',
-                  }} ></div>
-                  {/* <p style={{
-                      fontFamily: 'Poppins',
-                      fontSize:'smaller',
-                      fontWeight:'bold'
-                    }}>{movie.overview}</p> */}
+                  
+                    <FontAwesomeIcon   className="mb-2" style={{color:'purple',fontWeight:'bolder'}} icon={faChevronDown} ></FontAwesomeIcon>
                     <p>Top Cast:</p>
             <Row  style={{
                       fontFamily: 'Poppins'}} className="g-3">
@@ -363,42 +465,34 @@ const Home = () => {
                 </Col>
               ))}
             </Row>
-                    {/* <div className="watch-providers  "> */}
-      {/* {watchProviders[movie.id]?.US?.flatrate ? (
-        uniqueProviders(watchProviders[movie.id].US.flatrate).map((provider) => (
-          <div key={provider.provider_id} className="provider">
-            <p>Streaming on:</p>
-            <img src={`https://image.tmdb.org/t/p/w500/${provider.logo_path}`}  style={{ width: '40px', height: '40px', borderRadius: '50%' }} />
-          </div>
-        ))
-      ) : (
-        <p>No providers available</p>
-      )} */}
-    {/* </div> */}
-                    
+     
                   </div>
                 </div>
               </div>
+              </Card>
             </div>
           ))}
         </Slider>
 
         {/* TV Series Section */}
-        <div className="d-flex flex-row mt-5 ">
+        <div className="d-flex flex-row mt-2  align-items-center ">
+          <div  className="d-flex flex-row justify-content-center ">
           <div className="title_bar"></div>
-          <h3
-            className="text-center mb-4"
+          <h5
+            className="text-center mb-4 "
             style={{
               fontFamily: 'Poppins',
             }}
           >
             Top TV Series
-          </h3>
+          </h5>
+          </div>
         </div>
         <Slider {...settings}>
           {ratedMovies.map((rmovie) => (
             <div key={rmovie.id} className="px-2">
-              <div className="card movie-card shadow-sm rounded">
+              <Card className="p-2" >
+              <div className="card movie-card shadow-sm rounded w-100">
                 <div className="img_top d-flex justify-content-center align-items-center " style={{
                   width:'50px',
                   backgroundColor:'#1f1f1f',
@@ -428,7 +522,8 @@ const Home = () => {
                 {/* Bottom Sheet for TV Series */}
                 <div className={`bottom-sheet ${openCardIdRated === rmovie.id ? "open" : ""}`}>
                   <div className="sheet-content" onClick={() => toggleDetailsRated(rmovie.id)}>
-                  
+                  <FontAwesomeIcon   className="mb-2" style={{color:'purple',fontWeight:'bolder'}} icon={faChevronDown} ></FontAwesomeIcon>
+
                     
                   <p>Top Cast:</p>
             <Row  style={{
@@ -463,6 +558,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
+              </Card>
             </div>
           ))}
         </Slider>
@@ -480,6 +576,56 @@ const Home = () => {
     </div>
         )}
         <div className="svg"></div>
+        <footer  className="mt-3" style={styles.footer}>
+      {/* Sign-in Button */}
+      <div style={styles.signIn}>
+        <button style={styles.button}>Sign in for more access</button>
+      </div>
+
+      {/* Social Media Links and App Section */}
+      <div style={styles.socialContainer}>
+        {/* Social Links */}
+        <div style={styles.socialBox}>
+          <h4 style={styles.heading}>Follow us on social</h4>
+          <div style={styles.socialIcons}>
+            <span style={styles.icon}>📸</span>
+            <span style={styles.icon}>✖️</span>
+            <span style={styles.icon}>📹</span>
+          </div>
+        </div>
+        {/* App Info */}
+        <div style={styles.socialBox}>
+          <h4 style={styles.heading}>Get the app</h4>
+          <div style={styles.qrCode}>[QR CODE]</div>
+          <p style={styles.appText}>For Android and iOS</p>
+        </div>
+      </div>
+
+      {/* Footer Links */}
+      <div style={styles.links}>
+        <span style={styles.link}>Help</span>
+        <span style={styles.link}>Site Index</span>
+        <span style={styles.link}>IMDBPro</span>
+        <span style={styles.link}>Jobs</span>
+        <span style={styles.link}>Conditions of Use</span>
+        <span style={styles.link}>Privacy Policy</span>
+      </div>
+
+      {/* Footer Bottom */}
+      <div style={styles.bottom}>
+        <span>© 1990-2025 by Your Company, Inc.</span>
+        <span>an <strong>Amazon</strong> company</span>
+      </div>
+    </footer>
+
+
+        </>):(<div  className="d-flex flex-column" style={styles2.spinnerContainer}>
+          <Spinner animation="border"  role="status">
+
+          </Spinner>
+          <span   className="pt-2" style={{color:'#1f1f1f'}} >Just a moment...</span>
+
+        </div>)}
     </div>
   );
 };

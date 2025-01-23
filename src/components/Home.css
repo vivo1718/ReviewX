@@ -280,6 +280,16 @@ color:#fff !important;
     background-position: -200% 0;
   }
 }
+.carou{
+  font-family: "Raleway", serif !important;
+
+}
+.back_shed{
+  background-color: #1f1f1f6d;
+}
+.div_home{
+  background: linear-gradient(to right, #5fbaff, #feb47b, #6dd5ed);
+}
 
 
 

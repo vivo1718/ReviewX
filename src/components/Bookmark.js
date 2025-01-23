@@ -1,6 +1,6 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ProgressBar } from 'react-bootstrap';
+import { ProgressBar,Spinner } from 'react-bootstrap';
 import { Toaster,toast } from 'sonner';
 import React, { useEffect, useState } from 'react';
 const Bookmark = () => {
@@ -84,16 +84,27 @@ const Bookmark = () => {
   useEffect(() => {
     fetchFavorites();
   }, []);
-
+  const n = 1;
+  const styles2 = {
+    spinnerContainer: {
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      zIndex: 9999,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  };
   if (loading) {
-    return <div className='d-flex flex-column justify-content-center align-items-center mt-3' ><p>Loading favorites...</p>
-    <ProgressBar
-          animated
-          now={progress}
-          label={`${progress}%`}          
-          style={{ width: '25%' }}
-        />
-    </div>;
+    return <div  className="d-flex flex-column" style={styles2.spinnerContainer}>
+    <Spinner animation="border"  role="status">
+
+    </Spinner>
+    <span   className="pt-2" style={{color:'#1f1f1f'}} >Just a moment...</span>
+
+  </div>;
   }
 
   if (error) {
@@ -101,9 +112,10 @@ const Bookmark = () => {
   }
 
   return (
-    <div className='d-flex flex-column ms-3 me-3 mt-5 ps-3 ' style={{fontFamily:'Poppins', }}  >
-      <Toaster richColors   position='top-right' className='d-flex rounded' expand={false}  ></Toaster>
-      <h3 className=' ms-5 mb-3' style={{
+    <div>
+      {!loading?(<div className='d-flex flex-column ms-3 me-3 mt-5 ps-3 ' style={{fontFamily:'Poppins',  }}  >
+      <Toaster    richColors className='d-flex rounded' expand={false}  ></Toaster>
+      <h3 className=' ms-5 mb-3 mt-4' style={{
         textDecoration:'underline'
       }} >Favorites </h3>
       {favorites.length > 0 ? (
@@ -123,6 +135,7 @@ const Bookmark = () => {
                 >
                   {/* Movie Poster */}
                   <div className="me-3">
+                    
                     <img
                       src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                       alt={movie.title}
@@ -167,6 +180,13 @@ const Bookmark = () => {
       ) : (
         <p>No favorites added yet.</p>
       )}
+    </div>):(<div  className="d-flex flex-column" style={styles2.spinnerContainer}>
+    <Spinner animation="border"  role="status">
+
+    </Spinner>
+    <span   className="pt-2" style={{color:'#1f1f1f'}} >Just a moment...</span>
+
+  </div>)}
     </div>
   );
 };

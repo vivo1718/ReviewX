@@ -11,6 +11,11 @@ import { faUserPlus, faUser, faUserCircle } from '@fortawesome/free-solid-svg-ic
 import axios from 'axios';
 import img3 from '../assets/new_user.png';
 import img4 from '../assets/sign_in.png'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
+import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
+
 const Navbar = ({ favorites = [] }) => {
   const navigate = useNavigate();
   const [showSignupModal, setShowSignupModal] = useState(false);
@@ -51,7 +56,11 @@ const Navbar = ({ favorites = [] }) => {
     setFormDataSign({ ...formDataSign, [name]: value });
   };
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Tracks authentication state
+  const [isOpen, setIsOpen] = useState(false); // Track if the navbar is open
 
+  const handleToggle = () => {
+    setIsOpen((prev) => !prev); // Toggle the state
+  };
 
   const handleSubmitSign = async (e) => {
     e.preventDefault();
@@ -75,7 +84,7 @@ const Navbar = ({ favorites = [] }) => {
 
   return (
     <>
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <nav   className="navbar navbar-expand-lg fixed-top">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           {/* <img
@@ -89,8 +98,9 @@ const Navbar = ({ favorites = [] }) => {
           <div className='d-flex justify-content-center align-items-center h-100 '  >ReviewX</div>
         </Link>
         <Button
-          className="navbar-toggler"
+          className="navbar-toggler bg-light"
           type="button"
+          onClick={handleToggle}
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
           aria-controls="navbarNav"
@@ -99,13 +109,18 @@ const Navbar = ({ favorites = [] }) => {
           style={{
             height:'50px',
             width:'50px',
+            transition: "all 0.3s ease",
+
           }}
         >
-          <span className="navbar-toggler-icon"></span>
+          <FontAwesomeIcon icon={isOpen?faXmark:faBars} style={{
+            transition: "transform 0.3s ease", // Smooth icon transition
+            transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+          }} ></FontAwesomeIcon>
         </Button>
 
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto">
+          <ul className="navbar-nav ms-auto w-100 d-flex justify-content-space-evenly align-items-center">
             <li className="nav-item">
               <Link className="nav-link active" to="/">
                 Home
@@ -123,7 +138,7 @@ const Navbar = ({ favorites = [] }) => {
             </li>
           </ul>
           
-           <Button
+           <div className='d-flex justify-content-center align-items-center' ><Button
               className="d-flex btn-sign justify-content-center align-items-center"
               style={{ borderRadius: '0px' }}
               onClick={handleSignupShow}
@@ -131,7 +146,7 @@ const Navbar = ({ favorites = [] }) => {
               Signup
             </Button>
           <Button className='d-flex btn-log justify-content-center align-items-center' style={{ borderRadius: '0px' }} onClick={handleSigninShow}
- >Login</Button>
+ >Login</Button></div>
   
         </div>
       </div>

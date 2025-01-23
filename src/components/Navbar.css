@@ -1,9 +1,16 @@
 .navbar {
-    background-color: rgba(0, 0, 0, 0.126) !important; /* Semi-transparent black */
-    backdrop-filter: blur(5px) !important; /* Adds a blur effect */
-    transition: background-color 0.3s ease !important; /* Smooth transition on scroll or hover */
+    /* background-color: rgba(0, 0, 0, 0) !important; Semi-transparent black */
+    /* background-color: transparent !important; */
+    background-color: #1f1f1f63 !important;
+  position: absolute !important;
+  width: 100% !important;
+  z-index: 10; /* Smooth transition on scroll or hover */
   }
-  
+  .navbar-toggler{
+    color:aliceblue !important;
+    background-color: #1f1f1f !important;
+    border-radius: 25px !important;
+  }
   
   .navbar-brand {
     color: white !important;
@@ -37,7 +44,7 @@
     font-size: small ;
     margin-left: 10px ;
   width:100px;
-  border-color: #692ff2;
+  border-color: #692ff2 !important;
   color: #1f1f1f;
   height: 40px ;
   margin-right: 10px ;
@@ -45,7 +52,7 @@
   .btn-log{
     font-family: "Raleway", serif;
     font-size: small ;
-    border-color: #692ff2;
+    border-color: #692ff2 !important;
     margin-left: 10px ;
   width:100px;
   color: #1f1f1f;
